@@ -1,9 +1,17 @@
 import instance from "./customize-axios";
 import axios from "./customize-axios";
 
-const fetchAllUser = () => {
-    return axios.get("/api/users?page=1");
+const fetchAllUser = (page) => {
+    return axios.get(`/api/users?page=${page}`);
 };
+
+const postUser = (name, job) => {
+    return axios.post("/api/users", { name, job })
+}
+
+
+
+
 
 // Add a response interceptor
 instance.interceptors.response.use(
@@ -18,4 +26,4 @@ instance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-export { fetchAllUser };
+export { fetchAllUser, postUser };
