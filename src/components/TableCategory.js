@@ -2,10 +2,18 @@ import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { listCategories } from "../services/CategoryService";
 import ModeAddCate from "./ModanAddCate";
+import ModeEditCate from "./ModanEditCate";
+import ModalConfirm from "./ModalConfirm";
 
 const TableCategory = (props) => {
   const [listCate, setListCate] = useState([]);
   const [isShowModalAddCategory, setIsShowModalAddCategory] = useState(false);
+  const [isShowModalEditCategory, setIsShowModalEditCategory] = useState(false);
+  const [dataEditCate, setDataEditCate] = useState({});
+  const [dataDeleteCate, setDataDeleteCate] = useState({});
+  const [isShowModalDeleteCategory, setIsShowModalDeleteCategory] =
+    useState(false);
+
   const getCate = async () => {
     let res = await listCategories();
     console.log("okok", res);
@@ -17,9 +25,18 @@ const TableCategory = (props) => {
   useEffect(() => {
     getCate();
   }, []);
-  const handleEditCate = () => {};
+  const handleEditCate = (cate) => {
+    setIsShowModalAddCategory(true);
+    setDataEditCate(cate);
+  };
   const handleClose = () => {
     setIsShowModalAddCategory(false);
+    setIsShowModalEditCategory(false);
+    setIsShowModalDeleteCategory(false);
+  };
+  const handleDeleteCate = (cate) => {
+    setIsShowModalDeleteCategory(true);
+    setDataDeleteCate(cate);
   };
 
   return (
@@ -63,7 +80,12 @@ const TableCategory = (props) => {
                     >
                       Edit
                     </button>
-                    <button className="btn btn-danger">Delete</button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteCate(item)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );
@@ -71,6 +93,17 @@ const TableCategory = (props) => {
         </tbody>
       </Table>
       <ModeAddCate show={isShowModalAddCategory} handleClose={handleClose} />
+      <ModeEditCate
+        show={isShowModalEditCategory}
+        handleClose={handleClose}
+        dataEditCate={dataEditCate}
+      />
+      <ModalConfirm
+        show={isShowModalDeleteCategory}
+        handleClose={handleClose}
+        dataDeleteCate={dataDeleteCate}
+        getCate={getCate}
+      />
     </>
   );
 };

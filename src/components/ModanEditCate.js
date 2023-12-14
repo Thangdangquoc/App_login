@@ -5,8 +5,8 @@ import { useState } from "react";
 import { saveCate } from "../services/CategoryService";
 import { toast } from "react-toastify";
 
-const ModeAddCate = (props) => {
-  const { show, handleClose } = props;
+const ModeEditCate = (props) => {
+  const { show, handleClose, dataEditCate } = props;
   const [name, setName] = useState("");
   const [symbol, setSymbol] = useState("");
   const [translate, setTranslate] = useState("");
@@ -21,10 +21,7 @@ const ModeAddCate = (props) => {
       setTranslate("");
       setDescription("");
       toast.success("A Category is creat success!");
-      setTimeout(() => {
-        // Sử dụng location.reload() để tải lại trang
-        window.location.reload();
-      }, 1000);
+      window.location.reload();
     } else {
       toast.error("Category is creat error!");
     }
@@ -99,4 +96,4 @@ const ModeAddCate = (props) => {
   );
 };
 
-export default ModeAddCate;
+export default ModeEditCate;
