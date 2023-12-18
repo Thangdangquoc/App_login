@@ -13,6 +13,17 @@ const saveCate = (name, symbol, translate, description) => {
     description,
   });
 };
+
+const updateCate = (id, name, symbol, translate, description) => {
+  return axios.put("/api/category/update", {
+    id,
+    name,
+    symbol,
+    translate,
+    description,
+  });
+};
+
 const deleteCate = (id) => {
   return axios.post("/api/category/delete", {
     id,
@@ -33,4 +44,4 @@ api_config.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-export { listCategories, saveCate, deleteCate, deleteCateParam };
+export { listCategories, saveCate, updateCate, deleteCate, deleteCateParam };

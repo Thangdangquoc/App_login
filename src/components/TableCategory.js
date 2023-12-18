@@ -26,7 +26,8 @@ const TableCategory = (props) => {
     getCate();
   }, []);
   const handleEditCate = (cate) => {
-    setIsShowModalAddCategory(true);
+    setIsShowModalEditCategory(true);
+    console.log("catecate", cate);
     setDataEditCate(cate);
   };
   const handleClose = () => {

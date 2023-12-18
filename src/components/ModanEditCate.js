@@ -1,8 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
-import { saveCate } from "../services/CategoryService";
+import { useEffect, useState } from "react";
+import { updateCate } from "../services/CategoryService";
 import { toast } from "react-toastify";
 
 const ModeEditCate = (props) => {
@@ -11,9 +11,17 @@ const ModeEditCate = (props) => {
   const [symbol, setSymbol] = useState("");
   const [translate, setTranslate] = useState("");
   const [description, setDescription] = useState("");
-  const handleSaveCate = async () => {
-    let res = await saveCate(name, symbol, translate, description);
-    console.log("res ", res);
+
+  const handleUpdateCate = async () => {
+    console.log("res ", dataEditCate);
+    let res = await updateCate(
+      dataEditCate.id,
+      name,
+      symbol,
+      translate,
+      description
+    );
+    console.log("res mes", res);
     if (res && res.Errors.message === "SUCCESS") {
       handleClose();
       setName("");
@@ -26,6 +34,16 @@ const ModeEditCate = (props) => {
       toast.error("Category is creat error!");
     }
   };
+
+  useEffect(() => {
+    if (show) {
+      console.log("data", dataEditCate);
+      setName(dataEditCate.name);
+      setSymbol(dataEditCate.symbol);
+      setTranslate(dataEditCate.translate);
+      setDescription(dataEditCate.description);
+    }
+  }, [dataEditCate]);
   return (
     <>
       <Modal
@@ -87,7 +105,7 @@ const ModeEditCate = (props) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleSaveCate()}>
+          <Button variant="primary" onClick={() => handleUpdateCate()}>
             Save Changes
           </Button>
         </Modal.Footer>

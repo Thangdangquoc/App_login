@@ -35,7 +35,16 @@ const ModalConfirm = (props) => {
         <Modal.Body>
           <div className="body-add-new">
             Do want to delete this category ?
-            <h5>Categoy = {dataDeleteCate.name}</h5>
+            <h5>
+              Category ={" "}
+              <span
+                style={{
+                  color: "red",
+                }}
+              >
+                {dataDeleteCate.name}
+              </span>
+            </h5>
           </div>
         </Modal.Body>
         <Modal.Footer>
